@@ -24,6 +24,8 @@ nav:
   - 计算机网络专题训练 TCP 实验:
     - 总述: index.md
     - 实验要求: requirement.md
+    - 配置环境: setup.md
+    - lwIP 库: lwip.md
 
 extra_javascript:
   - 'https://cdn.jsdelivr.net/npm/mathjax@2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'
