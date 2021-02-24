@@ -26,24 +26,31 @@
 | 功能                                                         | 分值 | 引用              |
 | ------------------------------------------------------------ | ---- | ----------------- |
 | 1. basic 3-way handshake                                     | 5*   | RFC 796 Figure 7  |
-| 2. tcp state machine                                         | 5*   | RFC796 Figure 6   |
+| 2. tcp state machine                                         | 5*   | RFC 796 Figure 6  |
 | 3. simultaneous connection synchronization                   | 2    | RFC 796 Figure 8  |
 | 4. recovery from old duplicate syn                           | 2    | RFC 796 Figure 9  |
 | 5. half-open connection discovery                            | 2    | RFC 796 Figure 10 |
 | 6. active side causes half-open connection discovery         | 2    | RFC 796 Figure 11 |
-| 7. old uplicate syn initiates a reset on two passive sockets | 2    | RFC 796 Figure 12 |
+| 7. old duplicate syn initiates a reset on two passive sockets | 2    | RFC 796 Figure 12 |
+
+注：
+
+1. 功能 2 指的是需要在代码中补全状态机的状态转移，转移的时候输出信息到标准输出
+2. 功能 3-7 把情况构造出来可能比较麻烦
 
 ## 2. 序列号计算
 
 | 功能                                 | 分值 | 引用                |
 | ------------------------------------ | ---- | ------------------- |
-| 1. sequence arithmetic (comparison)  | 2*   | RFC 796 Section 3.3 |
+| 1. sequence arithmetic (comparison)  | 1*   | RFC 796 Section 3.3 |
 | 2. initial sequence number selection | 2*   | RFC 796 Page 27     |
-| 3. send/receive sequence variables   | 1*   | RFC 796 Section 3.2 |
+| 3. send/receive sequence variables   | 2*   | RFC 796 Section 3.2 |
 
 注：
 
-1. 这部分在实验报告中只需要介绍一下代码即可，不需要展示。
+1. 功能 1 和 2 在实验报告中只需要简单介绍一下代码实现。
+2. 功能 3 需要在报告里介绍一下各个变量都代表什么，在什么情况下会更新。。
+3. 功能 1 到 3 都不需要展示。
 
 ## 3. 连接终止
 
@@ -52,6 +59,10 @@
 | 1. local use initiates the close       | 3*   | RFC 796 Section 3.5 Case 1 & Figure 13 |
 | 2. TCP receives a FIN from the network | 2*   | RFC 796 Section 3.5 Case 2             |
 | 3. both users close simultaneously     | 3    | RFC 796 Section 3.5 Case 3 & Figure 14 |
+
+注：
+
+1. 功能 3 把情况构造出来可能比较麻烦
 
 ## 4. 数据传输
 
@@ -90,7 +101,9 @@
 | 2. tls over tcp                  | 10   | RFC 5246           |
 | 3. window scaling                | 5    | RFC 7323 Section 2 |
 | 4. timestamps                    | 5    | RFC 7323 Section 3 |
+| 5. iperf client                  | 10   |                    |
 
 注：
 
 1. 不需要自己实现 TLS，请使用 OpenSSL 等库
+2. iperf 的要求是在自己的网络栈基础上，编写 iperf 客户端链接 lwip 内置的 iperf 服务端

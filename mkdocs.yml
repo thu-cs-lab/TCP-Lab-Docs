@@ -25,6 +25,7 @@ nav:
     - 总述: index.md
     - 实验要求: requirement.md
     - 配置环境: setup.md
+    - 实验框架: framework.md
     - lwIP 库: lwip.md
 
 extra_javascript:
