@@ -27,6 +27,7 @@ nav:
     - 配置环境: setup.md
     - 实验框架: framework.md
     - lwIP 库: lwip.md
+    - 实验流程: process.md
 
 extra_javascript:
   - 'https://cdn.jsdelivr.net/npm/mathjax@2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'

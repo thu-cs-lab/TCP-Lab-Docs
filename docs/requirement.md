@@ -56,9 +56,9 @@
 
 | 功能                                   | 分值 | 引用                                   |
 | -------------------------------------- | ---- | -------------------------------------- |
-| 1. local use initiates the close       | 3*   | RFC 796 Section 3.5 Case 1 & Figure 13 |
+| 1. local user initiates the close      | 3*   | RFC 796 Section 3.5 Case 1 & Figure 13 |
 | 2. TCP receives a FIN from the network | 2*   | RFC 796 Section 3.5 Case 2             |
-| 3. both users close simultaneously     | 3    | RFC 796 Section 3.5 Case 3 & Figure 14 |
+| 3. both users close simultaneously     | 2    | RFC 796 Section 3.5 Case 3 & Figure 14 |
 
 注：
 
@@ -71,7 +71,7 @@
 | 1. simple client SEND to server      | 10*  | RFC 796 Section 3.8 |
 | 2. simple client RECEIVE from server | 10*  | RFC 796 Section 3.8 |
 | 3. retransmission                    | 5    | RFC 796 Section 3.7 |
-| 4. urgent                            | 5    | RFC 796 Section 3.7 |
+| 4. urgent                            | 3    | RFC 796 Section 3.7 |
 | 5. out of order handling             | 5    |                     |
 
 注：
@@ -91,17 +91,17 @@
 | -------------------------------------- | ---- | -------------------- |
 | 1. slow start and congestion avoidance | 10*  | RFC 5681 Section 3.1 |
 | 2. fast transmit/fast recovery         | 10   | RFC 5681 Section 3.2 |
-| 3. cubic                               | 20   | RFC 8312             |
+| 3. cubic                               | 15   | RFC 8312             |
 
 ## 其他
 
 | 功能                             | 分值 | 引用               |
 | -------------------------------- | ---- | ------------------ |
-| 1. tcp selective acknowledgement | 20   | RFC 2018           |
+| 1. tcp selective acknowledgement | 15   | RFC 2018           |
 | 2. tls over tcp                  | 10   | RFC 5246           |
 | 3. window scaling                | 5    | RFC 7323 Section 2 |
 | 4. timestamps                    | 5    | RFC 7323 Section 3 |
-| 5. iperf client                  | 10   |                    |
+| 5. iperf client                  | 5    |                    |
 
 注：
 
