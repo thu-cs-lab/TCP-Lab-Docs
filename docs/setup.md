@@ -5,7 +5,7 @@
 以 Debian（Ubuntu） 为例，可以用 APT 安装依赖：
 
 ```shell
-$ sudo apt install -y git meson ninja gcc g++
+$ sudo apt install -y git meson ninja-build gcc g++
 ```
 
 ## 支持的操作系统
