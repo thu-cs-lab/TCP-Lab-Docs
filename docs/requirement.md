@@ -25,13 +25,13 @@
 
 | 功能                                                         | 分值 | 引用              |
 | ------------------------------------------------------------ | ---- | ----------------- |
-| 1. basic 3-way handshake                                     | 5*   | RFC 796 Figure 7  |
-| 2. tcp state machine                                         | 5*   | RFC 796 Figure 6  |
-| 3. simultaneous connection synchronization                   | 2    | RFC 796 Figure 8  |
-| 4. recovery from old duplicate syn                           | 2    | RFC 796 Figure 9  |
-| 5. half-open connection discovery                            | 2    | RFC 796 Figure 10 |
-| 6. active side causes half-open connection discovery         | 2    | RFC 796 Figure 11 |
-| 7. old duplicate syn initiates a reset on two passive sockets | 2    | RFC 796 Figure 12 |
+| 1. basic 3-way handshake                                     | 5*   | RFC 793 Figure 7  |
+| 2. tcp state machine                                         | 5*   | RFC 793 Figure 6  |
+| 3. simultaneous connection synchronization                   | 2    | RFC 793 Figure 8  |
+| 4. recovery from old duplicate syn                           | 2    | RFC 793 Figure 9  |
+| 5. half-open connection discovery                            | 2    | RFC 793 Figure 10 |
+| 6. active side causes half-open connection discovery         | 2    | RFC 793 Figure 11 |
+| 7. old duplicate syn initiates a reset on two passive sockets | 2    | RFC 793 Figure 12 |
 
 注：
 
@@ -42,9 +42,9 @@
 
 | 功能                                 | 分值 | 引用                |
 | ------------------------------------ | ---- | ------------------- |
-| 1. sequence arithmetic (comparison)  | 1*   | RFC 796 Section 3.3 |
-| 2. initial sequence number selection | 2*   | RFC 796 Page 27     |
-| 3. send/receive sequence variables   | 2*   | RFC 796 Section 3.2 |
+| 1. sequence arithmetic (comparison)  | 1*   | RFC 793 Section 3.3 |
+| 2. initial sequence number selection | 2*   | RFC 793 Page 27     |
+| 3. send/receive sequence variables   | 2*   | RFC 793 Section 3.2 |
 
 注：
 
@@ -56,9 +56,9 @@
 
 | 功能                                   | 分值 | 引用                                   |
 | -------------------------------------- | ---- | -------------------------------------- |
-| 1. local user initiates the close      | 3*   | RFC 796 Section 3.5 Case 1 & Figure 13 |
-| 2. TCP receives a FIN from the network | 2*   | RFC 796 Section 3.5 Case 2             |
-| 3. both users close simultaneously     | 2    | RFC 796 Section 3.5 Case 3 & Figure 14 |
+| 1. local user initiates the close      | 3*   | RFC 793 Section 3.5 Case 1 & Figure 13 |
+| 2. TCP receives a FIN from the network | 2*   | RFC 793 Section 3.5 Case 2             |
+| 3. both users close simultaneously     | 2    | RFC 793 Section 3.5 Case 3 & Figure 14 |
 
 注：
 
@@ -68,10 +68,10 @@
 
 | 功能                                 | 分值 | 引用                |
 | ------------------------------------ | ---- | ------------------- |
-| 1. simple client SEND to server      | 10*  | RFC 796 Section 3.8 |
-| 2. simple client RECEIVE from server | 10*  | RFC 796 Section 3.8 |
-| 3. retransmission                    | 5    | RFC 796 Section 3.7 |
-| 4. urgent                            | 3    | RFC 796 Section 3.7 |
+| 1. simple client SEND to server      | 10*  | RFC 793 Section 3.8 |
+| 2. simple client RECEIVE from server | 10*  | RFC 793 Section 3.8 |
+| 3. retransmission                    | 5    | RFC 793 Section 3.7 |
+| 4. urgent                            | 3    | RFC 793 Section 3.7 |
 | 5. out of order handling             | 5    |                     |
 
 注：
@@ -82,8 +82,8 @@
 
 | 功能                       | 分值 | 引用                |
 | -------------------------- | ---- | ------------------- |
-| 1. send and receive window | 10*  | RFC 796 Section 3.2 |
-| 2. zero window report      | 5    | RFC 796 Page 42     |
+| 1. send and receive window | 10*  | RFC 793 Section 3.2 |
+| 2. zero window report      | 5    | RFC 793 Page 42     |
 
 ## 6. 拥塞控制
 
