@@ -1,6 +1,6 @@
 # 实验框架
 
-实验框架代码在 [https://github.com/thu-cs-lab/TCP-Lab](https://github.com/thu-cs-lab/TCP-Lab) ，请同学克隆下来进行开发。
+实验框架代码在 [https://git.tsinghua.edu.cn/tcp-lab/tcp-lab](https://git.tsinghua.edu.cn/tcp-lab/tcp-lab) ，请同学克隆下来进行开发。
 
 ## 目录结构
 
