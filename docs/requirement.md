@@ -89,10 +89,10 @@
 
 | 功能                                   | 分值 | 引用                 |
 | -------------------------------------- | ---- | -------------------- |
-| 1. slow start and congestion avoidance | 10*  | RFC 5681 Section 3.1 |
-| 2. fast transmit/fast recovery         | 10   | RFC 5681 Section 3.2 |
-| 3. cubic                               | 15   | RFC 8312             |
-| 4. Nagle's algorithm                   | 10   | RFC 896              |
+| 1. Nagle's algorithm                   | 10*  | RFC 896              |
+| 2. slow start and congestion avoidance | 10   | RFC 5681 Section 3.1 |
+| 3. fast transmit/fast recovery         | 15   | RFC 5681 Section 3.2 |
+| 4. cubic                               | 10   | RFC 8312             |
 
 ## 其他
 
