@@ -70,7 +70,7 @@
 | ------------------------------------ | ---- | ------------------- |
 | 1. simple client SEND to server      | 10*  | RFC 793 Section 3.8 |
 | 2. simple client RECEIVE from server | 10*  | RFC 793 Section 3.8 |
-| 3. retransmission                    | 5    | RFC 793 Section 3.7 |
+| 3. retransmission                    | 10   | RFC 793 Section 3.7 |
 | 4. urgent                            | 3    | RFC 793 Section 3.7 |
 | 5. out of order handling             | 5    |                     |
 
@@ -92,6 +92,7 @@
 | 1. slow start and congestion avoidance | 10*  | RFC 5681 Section 3.1 |
 | 2. fast transmit/fast recovery         | 10   | RFC 5681 Section 3.2 |
 | 3. cubic                               | 15   | RFC 8312             |
+| 4. Nagle's algorithm                   | 10   | RFC 896              |
 
 ## 其他
 
