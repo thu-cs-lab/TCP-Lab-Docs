@@ -91,14 +91,14 @@
 | -------------------------------------- | ---- | -------------------- |
 | 1. Nagle's algorithm                   | 10*  | RFC 896              |
 | 2. slow start and congestion avoidance | 10   | RFC 5681 Section 3.1 |
-| 3. fast transmit/fast recovery         | 15   | RFC 5681 Section 3.2 |
-| 4. cubic                               | 10   | RFC 8312             |
+| 3. fast transmit/fast recovery         | 10   | RFC 5681 Section 3.2 |
+| 4. cubic                               | 20   | RFC 8312             |
 
 ## 其他
 
 | 功能                             | 分值 | 引用               |
 | -------------------------------- | ---- | ------------------ |
-| 1. tcp selective acknowledgement | 15   | RFC 2018           |
+| 1. tcp selective acknowledgement | 20   | RFC 2018           |
 | 2. tls over tcp                  | 10   | RFC 5246           |
 | 3. window scaling                | 5    | RFC 7323 Section 2 |
 | 4. timestamps                    | 5    | RFC 7323 Section 3 |
