@@ -90,8 +90,8 @@
 | 功能                                   | 分值 | 引用                 |
 | -------------------------------------- | ---- | -------------------- |
 | 1. Nagle's algorithm                   | 10*  | RFC 896              |
-| 2. slow start and congestion avoidance | 10   | RFC 5681 Section 3.1 |
-| 3. fast transmit/fast recovery         | 10   | RFC 5681 Section 3.2 |
+| 2. slow start and congestion avoidance | 5    | RFC 5681 Section 3.1 |
+| 3. fast transmit/fast recovery         | 5    | RFC 5681 Section 3.2 |
 | 4. cubic                               | 20   | RFC 8312             |
 
 ## 其他
@@ -99,12 +99,12 @@
 | 功能                             | 分值 | 引用               |
 | -------------------------------- | ---- | ------------------ |
 | 1. tcp selective acknowledgement | 20   | RFC 2018           |
-| 2. tls over tcp                  | 10   | RFC 5246           |
-| 3. window scaling                | 5    | RFC 7323 Section 2 |
-| 4. timestamps                    | 5    | RFC 7323 Section 3 |
+| 2. tls over tcp                  | 5    | RFC 5246           |
+| 3. window scaling                | 3    | RFC 7323 Section 2 |
+| 4. timestamps                    | 2    | RFC 7323 Section 3 |
 | 5. iperf client                  | 5    |                    |
 
 注：
 
 1. 不需要自己实现 TLS，请使用 OpenSSL 等库
-2. iperf 的要求是在自己的网络栈基础上，编写 iperf 客户端链接 lwip 内置的 iperf 服务端
+2. iperf 的要求是在自己的网络栈基础上，编写 iperf 客户端连接 lwip 内置的 iperf 服务端
