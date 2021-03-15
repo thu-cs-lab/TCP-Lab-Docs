@@ -113,10 +113,10 @@ href="http://savannah.nongnu.org/projects/lwip/">http://savannah.nongnu.org/proj
 HTTP Result: 0
 ```
 
-接下来，用类似的方法运行同学编写的实验程序 `lab`：
+接下来，用类似的方法运行同学编写的实验程序 `lab-client`：
 
 ```shell
-$ make && ./builddir/lab -l c -r s -p lab.pcap
+$ make && ./builddir/lab-client -l c -r s -p lab-client.pcap
 ```
 
 如果工作正常，应该也可以看到类似上面的输出。
