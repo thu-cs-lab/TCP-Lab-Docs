@@ -8,6 +8,14 @@
 $ sudo apt install -y git meson ninja-build gcc g++
 ```
 
+如果使用的是 Ubuntu 18.04、Debian 9 或更老的版本，请用 pip3 安装最新 meson：
+
+```shell
+$ pip3 install meson
+```
+
+因为官方 APT 源中 meson 的版本不够新。
+
 ## 支持的操作系统
 
 实验框架保证支持下列的操作系统（发行版）：
