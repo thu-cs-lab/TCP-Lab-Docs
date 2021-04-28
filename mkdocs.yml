@@ -28,6 +28,7 @@ nav:
     - 实验框架: framework.md
     - lwIP 库: lwip.md
     - 实验流程: process.md
+    - 作业提交: submission.md
     - FAQ: faq.md
 
 extra_javascript:
