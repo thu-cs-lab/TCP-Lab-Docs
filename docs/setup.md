@@ -14,7 +14,7 @@ $ sudo apt install -y git meson ninja-build gcc g++
 $ pip3 install meson
 ```
 
-因为官方 APT 源中 meson 的版本不够新。
+因为官方 APT 源中 meson 的版本不够新。如果 meson 版本还是不对，检查一下运行的 meson 是否是 pip3 安装的 meson （比如 `~/.local/bin/meson`）。
 
 ## 支持的操作系统
 
