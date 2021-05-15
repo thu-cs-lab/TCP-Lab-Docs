@@ -34,11 +34,11 @@
 | ------------------------------------------------------------ | --------- | ----------------- |
 | 1. basic 3-way handshake*                                    | C(5)+S(5) | RFC 793 Figure 7  |
 | 2. tcp state machine*                                        | C(5)+S(5) | RFC 793 Figure 6  |
-| 3. simultaneous connection synchronization                   | C(2)+S(2) | RFC 793 Figure 8  |
+| 3. simultaneous connection synchronization                   | Common(4) | RFC 793 Figure 8  |
 | 4. recovery from old duplicate syn                           | C(2)+S(2) | RFC 793 Figure 9  |
-| 5. half-open connection discovery                            | C(2)+S(2) | RFC 793 Figure 10 |
-| 6. active side causes half-open connection discovery         | C(2)+S(2) | RFC 793 Figure 11 |
-| 7. old duplicate syn initiates a reset on two passive sockets | C(2)+S(2) | RFC 793 Figure 12 |
+| 5. half-open connection discovery                            | Common(4) | RFC 793 Figure 10 |
+| 6. active side causes half-open connection discovery         | Common(4) | RFC 793 Figure 11 |
+| 7. old duplicate syn initiates a reset on two passive sockets | Common(4) | RFC 793 Figure 12 |
 
 注：
 
