@@ -107,11 +107,11 @@
 | -------------------------------- | ---------- | ------------------ |
 | 1. lab tcp server*               | S(15)      |                    |
 | 2. simple http server*           | S(10)      |                    |
-| 2. tcp selective acknowledgement | Common(20) | RFC 2018           |
-| 3. tls over tcp                  | Common(5)  | RFC 5246           |
-| 4. window scaling                | Common(3)  | RFC 7323 Section 2 |
-| 5. timestamps                    | Common(2)  | RFC 7323 Section 3 |
-| 6. iperf                         | C(5)+S(5)  |                    |
+| 3. tcp selective acknowledgement | Common(20) | RFC 2018           |
+| 4. tls over tcp                  | Common(5)  | RFC 5246           |
+| 5. window scaling                | Common(3)  | RFC 7323 Section 2 |
+| 6. timestamps                    | Common(2)  | RFC 7323 Section 3 |
+| 7. iperf                         | C(5)+S(5)  |                    |
 
 注：
 
