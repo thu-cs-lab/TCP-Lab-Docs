@@ -18,6 +18,4 @@
 5. 服务端发完数据以后，它会发 `FIN` 告诉客户端要终止连接，那么客户端就要发送 `ACK`，并且更新状态机。这就完成了 `3.2 TCP receives a FIN from the network`。
 6. 最后还差 `3.1 local user initates the close` 功能，只需要同学修改一下客户端程序，让它调用 `tcp_shutdown`，相应的，协议栈也要发送 `FIN` 给对方，并处理对 `FIN` 的 `ACK`；还有 `6.1 slow start and congestion advoidance` 功能，留作同学们自行按照 RFC 和《计算机网络原理》课程的课件讲的方法去实现，不过，由于客户端和服务端之间的数据包较少，为了体现出明显的效果，请修改一下应用，并设置一下模拟出来的丢包率。
 
-如果是两人组队，还需要实现必选实验的 Server 部分。
-
 关于自选实验部分，就请同学们按照 RFC 自行发挥了，不再做过多提示。
