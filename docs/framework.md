@@ -16,35 +16,40 @@
 
 在源代码目录 `src` 下，又有三个子目录：
 
-1. client: 一个已经编写好的基于 lwIP 的 TCP 客户端，它会进行一次 HTTP GET 请求。
-2. server: 一个已经编写好的基于 lwIP 的 TCP 服务端，它上面运行了一个 HTTP 服务器。
-3. lab: 同学需要补全的 TCP 协议栈，也包括了一个简单的 HTTP 客户端，进行 HTTP GET 请求。
+1. lwip: 基于 lwIP 编写的 TCP 客户端和服务端。
+2. lab: 同学需要补全的 TCP 协议栈，也包括了一个简单的 HTTP 客户端和服务端。
+3. test: 用于测试 TCP 协议栈的测试代码和脚本
 
-同学们主要需要编写的就是 `lab` 目录下的代码。在部分功能里，可能需要对 server 添加功能，请参考 lwIP 文档进行添加或者寻求助教协助。
+同学们主要需要编写的就是 `lab` 目录下的代码。
 
 ## 客户端与服务端通信
 
 在 `src/common.cpp` 中，提供了进程间通信的代码。在本次实验中，客户端和服务端分别运行在一个进程中，为了发送 IP 分组给对方，采用的是 unix socket 的方法。如果出现创建 unix socket 失败的错误，请检查文件系统是否支持。
 
+编译后，会生成四个可执行程序：
+
+- lab-client, lab-server：采用同学编写的 TCP 协议栈的客户端和服务端
+- lwip-client, lwip-server：采用 lwIP 协议栈的客户端和服务端
+
 ## 如何运行程序
 
-程序所使用的 unix socket 路径通过命令行参数给出，比如，如果用 `s` 表示服务端，`c` 表示客户端，那么应该这样编译并运行 `server`:
+程序所使用的 unix socket 路径通过命令行参数给出，比如，如果用 `s` 表示服务端，`c` 表示客户端，那么应该这样编译并运行 `lwip-server`:
 
 ```shell
-$ make && ./builddir/server -l s -r c -p server.pcap
+$ make && ./builddir/lwip-server -l s -r c -p lwip-server.pcap
 ```
 
-这表示 `server` 的本地（监听）unix socket 是 `s`，远端（目的）unix socket 是 `c`，并且会把收发的 IP 分组写入到 `server.pcap` 文件里。
+这表示 `lwip-server` 的本地（监听）unix socket 是 `s`，远端（目的）unix socket 是 `c`，并且会把收发的 IP 分组写入到 `lwip-server.pcap` 文件里。
 
-类似地，可以运行 `client`：
+类似地，可以运行 `lwip-client`：
 
 ```shell
-$ make && ./builddir/client -l c -r s -p client.pcap
+$ make && ./builddir/lwip-client -l c -r s -p lwip-client.pcap
 ```
 
-注意要保持这里参数的 `-l` `-r` 应该和 `server` 的次序正好颠倒，这样就可以保证两个进程可以正常通信。同样地，它会把收发的 IP 分组写入到 `client.pcap` 文件里。
+注意要保持这里参数的 `-l` `-r` 应该和 `lwip-server` 的次序正好颠倒，这样就可以保证两个进程可以正常通信。同样地，它会把收发的 IP 分组写入到 `lwip-client.pcap` 文件里。
 
-如果同时运行 `server` 和 `client` 并且路径正确，应该可以看到 HTTP 获取到的结果：
+如果同时运行 `lwip-server` 和 `lwip-client` 并且路径正确，应该可以看到 HTTP 获取到的结果：
 
 ```text
 tcp_recved: received 130 bytes, wnd 1738 (406).
@@ -121,16 +126,18 @@ $ make && ./builddir/lab-client -l c -r s -p lab-client.pcap
 
 如果工作正常，应该也可以看到类似上面的输出。
 
+为了测试同学编写的协议栈作为客户端的功能，可以运行 lwip-server，再运行 lab-client 进行测试；如果要测试同学编写的协议栈作为服务端的功能，可以运行 lab-server，再运行 lwip-client 进行测试。最后，也可以自己与自己测试：运行 lab-server 和 lab-client。
+
 ## 模拟丢包
 
-在代码 `common.h` 和 `common.cpp` 中，提供了伪随机模拟丢包的逻辑，通过全局变量修改：
+在代码 `common.h` 和 `common.cpp` 中，提供了伪随机模拟丢包的逻辑，可以通过命令行参数指定：
 
-- recv_drop_{numerator, denomiator}：收包时的丢包率（分子/分母）
-- send_drop_{numerator, denomiator}：收包时的丢包率（分子/分母）
+- -R 0.1: 表示设置接收时的丢包率
+- -S 0.1: 表示设置发送时的丢包率
 
 默认设置下为不丢包。你可以任意设置丢包的比例，然后观察协议栈是否还可以正常工作。
 
-除了模拟丢包以外，还可以模拟乱序：比如在收发包的时候，先保存到缓冲区，然后按照一定的策略（定时+随机）选择缓冲区中的 IP 分组发出去。同学在完成相关功能的时候，也请自行实现乱序的模拟。
+除了模拟丢包以外，还可以模拟乱序：比如在收发包的时候，先保存到缓冲区，然后按照一定的策略（定时+随机）选择缓冲区中的 IP 分组发出去。
 
 ## 如何调试
 
