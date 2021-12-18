@@ -23,46 +23,46 @@
 
 ## 必选功能（总分 80 分）
 
-### Step 1. TCP 序列号的对比与生成
+### Step 1. TCP 序列号的对比与生成（sequence number comparison and generation）
 
 - 分数：10
 - 参考文档：RFC 793 Section 3.3 和 Page 27
 - 需要通过测试 1 和 2
 
-### Step 2. TCP 三次握手连接的建立
+### Step 2. TCP 三次握手连接的建立（3-way handshake）
 
 - 分数：10
 - 参考文档：RFC 793 Figure 7
 - 需要通过测试 3a 和 3b
 
-### Step 3. 简易的发送和接收逻辑
+### Step 3. 简易的发送和接收逻辑（send & receive）
 
 - 分数：10
 - 参考文档：RFC 793
 - 需要通过测试 4a 和 4b
 
-### Step 4. TCP 连接的终止
+### Step 4. TCP 连接的终止（connection termination）
 
 - 分数：10
 - 参考文档：RFC 793
 - 需要通过测试 xx
 
-### Step 5. 访问百度主页
+### Step 5. 访问百度主页（visit baidu homepage）
 
 - 分数：10
 - 需要通过测试 5
 
-### Step 6. 重传和乱序重排
+### Step 6. 重传和乱序重排（retransmission and out of order handling）
 
 - 分数：10
 - 需要通过测试 xx
 
-### Step 7. 实现 Nagle 算法
+### Step 7. 实现 Nagle 算法（Nagle's algorithm）
 
 - 分数：10
 - 需要通过测试 xx
 
-### Step 8. 实现慢启动和冲突避免
+### Step 8. 实现慢启动和冲突避免（slow start and congestion avoidance）
 
 - 分数：10
 - 需要通过测试 xx
