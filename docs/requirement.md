@@ -76,6 +76,7 @@
 ### Step 7. 实现 Nagle 算法（Nagle's algorithm）
 
 - 分数：5
+- 参考文档：[RFC 896](https://datatracker.ietf.org/doc/html/rfc896)
 - 需要通过测试 xx
 
 ### Step 8. 实现慢启动，冲突避免和快速重传（slow start, congestion avoidance and fast retransmit/recovery）

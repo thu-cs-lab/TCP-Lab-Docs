@@ -27,7 +27,6 @@ nav:
     - 配置环境: setup.md
     - 实验框架: framework.md
     - lwIP 库: lwip.md
-    - 实验流程: process.md
     - 作业提交: submission.md
     - FAQ: faq.md
 
