@@ -91,32 +91,32 @@
 
 ## 限选功能（总分 20 分）
 
-### 实现 TCP Window Scale Option
+### Feature 1. 实现 TCP Window Scale Option
 
 - 分数：5
 - 参考文档：[RFC 7323 Section 2](https://datatracker.ietf.org/doc/html/rfc7323#section-2)
 
-### 实现 TCP Timestamps Option
+### Feature 2. 实现 TCP Timestamps Option
 
 - 分数：5
 - 参考文档：[RFC 7323 Section 3](https://datatracker.ietf.org/doc/html/rfc7323#section-3)
 
-### 实现 TCP New Reno 拥塞控制算法
+### Feature 3. 实现 TCP New Reno 拥塞控制算法
 
 - 分数：20
 - 参考文档：[RFC 6582](https://datatracker.ietf.org/doc/html/rfc6582)
 
-### 实现 TCP CUBIC 拥塞控制算法
+### Feature 4. 实现 TCP CUBIC 拥塞控制算法
 
 - 分数：20
 - 参考文档：[RFC 8312](https://datatracker.ietf.org/doc/html/rfc8312)
 
-### 实现 TCP BBR 拥塞控制算法
+### Feature 5. 实现 TCP BBR 拥塞控制算法
 
 - 分数：20
 - 参考文档：[RFC BBR draft](https://datatracker.ietf.org/doc/html/draft-cardwell-iccrg-bbr-congestion-control-01)
 
-### 实现 SACK
+### Feature 6. 实现 SACK
 
 - 由于 lwIP 不支持 SACK，此处需要用 TUN 模式进行测试。
 - 分数：20
