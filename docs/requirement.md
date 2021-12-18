@@ -56,7 +56,7 @@
 - 实现 tcp_close 函数：发送 FIN
 - 实现接收 FIN 的逻辑
 - 分数：10
-- 参考文档：RFC 793
+- 参考文档：[RFC 793 Page 60](https://www.rfc-editor.org/rfc/rfc793.html#page-60) 和 [RFC 793 Page 75](https://www.rfc-editor.org/rfc/rfc793.html#page-75)
 - 需要通过测试 xx
 
 ### Step 5. 访问百度主页（visit baidu homepage）
@@ -68,17 +68,24 @@
 
 ### Step 6. 重传和乱序重排（retransmission and out of order handling）
 
+- 重传的实现思路是，对于发出去的 TCP 分组，记录在一个列表中，并且启动一个计时器，每一段时间检查一下列表中的 TCP 分组，如果发现有已经被对端 ACK 的，就删掉；否则就再次发送。
+- 乱序重排的实现思路是，如果发现 TCP 分组的序列号不等于 RCV.NXT，此时出现了乱序，先把数据保存到列表中，当之后接受到序列号等于 RCV.NXT 的分组时，再将列表中已有的数据拼接起来，写入到接收缓冲区中。
 - 分数：10
 - 需要通过测试 xx
 
 ### Step 7. 实现 Nagle 算法（Nagle's algorithm）
 
-- 分数：10
+- 分数：5
 - 需要通过测试 xx
 
-### Step 8. 实现慢启动和冲突避免（slow start and congestion avoidance）
+### Step 8. 实现慢启动，冲突避免和快速重传（slow start, congestion avoidance and fast retransmit/recovery）
 
-- 分数：10
+- 添加 cwnd 变量，表示拥塞窗口大小。还需要定义 ssthresh，表示慢启动的阈值。
+- cwnd 初始状态下设为 MSS 的一个倍数，在慢驱动阶段（cwnd < ssthresh），每次接收到 ACK，都会增加 cwnd。
+- 当 cwnd > ssthresh 时，进入冲突避免阶段，此时采用新的方式增加 cwnd。
+- 当发现重复的 ACK 时，采用快速重传算法，更新 cwnd 和 ssthresh。
+- 分数：15
+- 参考文档：[RFC 5681 Section 3.1](https://datatracker.ietf.org/doc/html/rfc5681#section-3.1) 和 [RFC 5681 Section 3.2](https://datatracker.ietf.org/doc/html/rfc5681#section-3.2)
 - 需要通过测试 xx
 
 ## 限选功能（总分 20 分）
@@ -86,14 +93,17 @@
 ### 实现 TCP New Reno 拥塞控制算法
 
 - 分数：20
+- 参考文档：[RFC 6582](https://datatracker.ietf.org/doc/html/rfc6582)
 
 ### 实现 TCP CUBIC 拥塞控制算法
 
 - 分数：20
+- 参考文档：[RFC 8312](https://datatracker.ietf.org/doc/html/rfc8312)
 
 ### 实现 TCP BBR 拥塞控制算法
 
 - 分数：20
+- 参考文档：[RFC BBR draft](https://datatracker.ietf.org/doc/html/draft-cardwell-iccrg-bbr-congestion-control-01)
 
 ### 实现 SACK
 
