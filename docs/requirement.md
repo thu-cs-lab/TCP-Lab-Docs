@@ -90,6 +90,16 @@
 
 ## 限选功能（总分 20 分）
 
+### 实现 TCP Window Scale Option
+
+- 分数：5
+- 参考文档：[RFC 7323 Section 2](https://datatracker.ietf.org/doc/html/rfc7323#section-2)
+
+### 实现 TCP Timestamps Option
+
+- 分数：5
+- 参考文档：[RFC 7323 Section 3](https://datatracker.ietf.org/doc/html/rfc7323#section-3)
+
 ### 实现 TCP New Reno 拥塞控制算法
 
 - 分数：20
@@ -107,12 +117,6 @@
 
 ### 实现 SACK
 
+- 由于 lwIP 不支持 SACK，此处需要用 TUN 模式进行测试。
 - 分数：20
-
-### 实现 Windows Scaling
-
-- 分数：5
-
-### 实现 TCP Timestamps
-
-- 分数：5
+- 参考文档：[RFC 2018](https://datatracker.ietf.org/doc/html/rfc2018)
