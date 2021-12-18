@@ -25,32 +25,46 @@
 
 ### Step 1. TCP 序列号的对比与生成（sequence number comparison and generation）
 
+- 实现序列号的对比函数（共四个），注意序列号在可能溢出时大小比较的特殊情况。
+- 实现序列号的生成函数，序列号可以从目前的时间戳计算得到。
 - 分数：10
-- 参考文档：RFC 793 Section 3.3 和 Page 27
-- 需要通过测试 1 和 2
+- 参考文档：[RFC 793 Section 3.3](https://www.rfc-editor.org/rfc/rfc793.html#section-3.3) 和 [RFC 793 Page 27](https://www.rfc-editor.org/rfc/rfc793.html#page-27)
+- 测试 1：给定一些例子，测试对比函数结果是否正确
+- 测试 2：每隔一段时间生成一系列的序列号，这些序列号应该不重复
 
 ### Step 2. TCP 三次握手连接的建立（3-way handshake）
 
+- 对于客户端，首先发送 SYN，进入 SYN_SENT 状态；接收到 SYN+ACK 时，发送 ACK 并进入 ESTABLISHED 状态。
+- 对于服务端，在 LISTEN 状态时，如果接收到 SYN，新建一个 TCP socket，发送 SYN+ACK 并进入 SYN_RCVD 状态；接收到 ACK 时，进入 ESTABLISHED 状态。
 - 分数：10
-- 参考文档：RFC 793 Figure 7
-- 需要通过测试 3a 和 3b
+- 参考文档：[RFC 793 Figure 7](https://www.rfc-editor.org/rfc/rfc793.html#page-23) 和 [RFC 793 Section 3.4](https://www.rfc-editor.org/rfc/rfc793.html#section-3.4)
+- 测试 3a：测试客户端逻辑，启动 lab-client 和 lwip-server，在输出日志中检查 TCP 状态机的转移
+- 测试 3b：测试服务端逻辑，启动 lwip-client 和 lab-server，在输出日志中检查 TCP 状态机的转移
 
 ### Step 3. 简易的发送和接收逻辑（send & receive）
 
+- 简易的发送和接收：不考虑丢包和乱序
+- 发送：将用户调用 tcp_write 传入的数据写入缓冲区，综合 MSS、待发送的数据大小和对方窗口大小，发送数据
+- 接收：将对方发送的正确数据写入缓冲区，当用户调用 tcp_read 时，从缓冲区复制数据到用户数组
 - 分数：10
-- 参考文档：RFC 793
-- 需要通过测试 4a 和 4b
+- 参考文档：[RFC 793 Page 56](https://www.rfc-editor.org/rfc/rfc793.html#page-56) 和 [RFC 793 Page 58](https://www.rfc-editor.org/rfc/rfc793.html#page-58)
+- 测试 4a：测试客户端逻辑，启动 lab-client 和 lwip-server，在输出日志中检查是否正确完成了 HTTP 请求
+- 测试 4b：测试服务端逻辑，启动 lwip-client 和 lab-server，在输出日志中检查是否正确完成了 HTTP 请求
 
 ### Step 4. TCP 连接的终止（connection termination）
 
+- 实现 tcp_close 函数：发送 FIN
+- 实现接收 FIN 的逻辑
 - 分数：10
 - 参考文档：RFC 793
 - 需要通过测试 xx
 
 ### Step 5. 访问百度主页（visit baidu homepage）
 
+- 如果前面四步实现得当，这一步应该直接可以通过
+- 给做实验的你一个有成就感的阶段性成果
 - 分数：10
-- 需要通过测试 5
+- 测试 5：在本地运行 socat 命令，监听 80 端口并转发百度主页；然后运行 lab-client 并设置为 TUN 模式，那么 lab-client 会通过本机 80 端口访问百度主页 80 端口，并下载到本地
 
 ### Step 6. 重传和乱序重排（retransmission and out of order handling）
 
