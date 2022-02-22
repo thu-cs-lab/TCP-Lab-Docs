@@ -1,7 +1,7 @@
 site_name: TCP 实验文档
 site_description: 'Documentation for Labs of Network Training'
 site_author: 'TCP Lab Developers'
-copyright: 'Copyright &copy; 2021 Department of Computer Science and Technology, Tsinghua University. All Rights Reserved.'
+copyright: 'Copyright &copy; 2021-2022 Department of Computer Science and Technology, Tsinghua University. All Rights Reserved.'
 
 theme: 
   name: 'material'
@@ -41,6 +41,8 @@ plugins:
   - git-authors:
       show_contribution: true
       show_line_count: true
+      count_empty_lines: true
+      fallback_to_empty: false
 
 markdown_extensions:
   - admonition
