@@ -79,13 +79,13 @@
 - 重传的实现思路是，对于发出去的 TCP 分组，记录在一个列表中，并且启动一个计时器，每一段时间检查一下列表中的 TCP 分组，如果发现有已经被对端 ACK 的，就删掉；否则就再次发送。
 - 乱序重排的实现思路是，如果发现 TCP 分组的序列号不等于 RCV.NXT，此时出现了乱序，先把数据保存到列表中，当之后接受到序列号等于 RCV.NXT 的分组时，再将列表中已有的数据拼接起来，写入到接收缓冲区中。
 - 分数：10
-- 需要通过测试 xx
+- 暂无自动化测试
 
 ### Step 7. 实现 Nagle 算法（Nagle's algorithm）
 
 - 分数：5
 - 参考文档：[RFC 896](https://datatracker.ietf.org/doc/html/rfc896)
-- 需要通过测试 xx
+- 暂无自动化测试
 
 ### Step 8. 实现慢启动，冲突避免和快速重传（slow start, congestion avoidance and fast retransmit/recovery）
 
@@ -95,7 +95,7 @@
 - 当发现重复的 ACK 时，采用快速重传算法，更新 cwnd 和 ssthresh。
 - 分数：15
 - 参考文档：[RFC 5681 Section 3.1](https://datatracker.ietf.org/doc/html/rfc5681#section-3.1) 和 [RFC 5681 Section 3.2](https://datatracker.ietf.org/doc/html/rfc5681#section-3.2)
-- 需要通过测试 xx
+- 暂无自动化测试
 
 ## 限选功能（总分 20 分）
 
