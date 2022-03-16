@@ -72,7 +72,7 @@
 - 如果前面四步实现得当，这一步应该直接可以通过
 - 给做实验的你一个有成就感的阶段性成果
 - 分数：10
-- 测试 6：在本地运行 socat 命令，监听 80 端口并转发百度主页；然后运行 lab-client 并设置为 TUN 模式，那么 lab-client 会通过本机 80 端口访问百度主页 80 端口，并下载到本地
+- 测试 6：在本地运行 socat 命令（命令：`sudo socat TCP-LISTEN:80,reuseaddr,fork TCP:www.baidu.com:80`），监听 80 端口并转发百度主页；然后运行 lab-client 并设置为 TUN 模式（命令：`make run-lab-client-tun`），那么 lab-client 会通过本机 80 端口访问百度主页 80 端口，并下载到本地
 
 ### Step 6. 重传和乱序重排（retransmission and out of order handling）
 
