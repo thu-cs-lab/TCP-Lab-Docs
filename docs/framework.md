@@ -146,3 +146,65 @@ $ make && ./builddir/lab-client -l c -r s -p lab-client.pcap
 此外，也可以在代码中添加调试信息，也可以打开 lwIP 的更多调试信息，详见 [lwIP 库](/tcp/doc/lwip/)。
 
 最后，别忘了可以用调试器来单步调试。
+
+## 框架设计
+
+框架代码是一个单线程并发的模式，有些类似 Node.JS，即不会进行阻塞的操作。如果进行的操作可能阻塞，注册一个回调函数，定期轮询是否可以继续。以 `lab-client.cpp` 的发送逻辑为例子：
+
+```cpp
+// write HTTP request line by line every 1s
+const char *data[] = {
+    "GET /index.html HTTP/1.1\r\n",
+    "Accept: */*\r\n",
+    "Host: 10.0.0.1\r\n",
+    "Connection: Close\r\n",
+    "\r\n",
+};
+int index = 0;
+size_t offset = 0;
+timer_fn write_fn = [&] {
+  if (tcp_state(tcp_fd) == TCPState::CLOSED) {
+    printf("Connection closed\n");
+    return -1;
+  }
+  if (tcp_state(tcp_fd) != TCPState::ESTABLISHED) {
+    printf("Waiting for connection establishment\n");
+    return 1000;
+  }
+
+  const char *p = data[index];
+  size_t len = strlen(p);
+  ssize_t res = tcp_write(tcp_fd, (const uint8_t *)p + offset, len - offset);
+  if (res > 0) {
+    printf("Write '%s' to tcp\n", p);
+    offset += res;
+
+    // write completed
+    if (offset == len) {
+      index++;
+      offset = 0;
+    }
+  }
+
+  // next data
+  if (index < 5) {
+    return 100;
+  } else {
+    return -1;
+  }
+};
+TIMERS.schedule_job(write_fn, 1000);
+```
+
+这段代码向计时器类 TIMER 注册了一个回调函数，然后这个函数内部有一个状态机，记录当前发送到哪一段数据的哪个偏移。如果发送不完全（比如因为 buffer 满等原因），就再注册一个回调函数，等下一次超时再尝试发送。
+
+接受端也是类似的，只不过更复杂一些，在 `struct read_http_response` 中实现。它实现了一个状态机，保存了当前的状态（是否读入了 http header，读了多少 http body），并且不断尝试读取；类似地，如果发现 TCP 读取缓冲区为空，就注册一个回调函数（恰好也是结构体自己），等下一次超时再次尝试接收。
+
+那么，上面的机制，很重要的一个基础设施就是计时器，在代码中就是 TIMERS 结构体。它维护了一个优先队列，根据事件发生时间从小到大排序。注册回调的时候，会往优先队列中插入一个新的事件。在 main 函数调用 `TIMERS.trigger` 函数的时候，它就会检查优先队列中，执行那些已经到了时间的事件。
+
+TIMERS 的用法也很简单：
+
+- `TIMERS.add_job(timer_fn fn, uint64_t ts_msec)`: 注册一个回调，会在 `ts_msec` 这个时间戳之后的时间内尽快被调用
+- `TIMERS.schedule_job(timer_fn fn, uint64_t delay_msec)`: 注册一个回调，会在距离现在 `delay_msec` 毫秒之后不远的时间内尽快被调用
+
+需要注意的是，在这种单线程并发的模式里，如果代码中写了死循环，TIMERS 也不会触发，因为代码不会进入 `TIMERS.trigger` 函数中。另外，事件的触发也是不准时的：如果之前的事件跑的时间太久，后面的事件可能很晚才能开始执行。同学们可以回忆一下《操作系统》课程中对调度器和实时性操作系统的讲解。和操作系统不同的是，这里没有时钟中断，无法打断正在执行的程序，只能程序主动交出执行权限（类似 coroutine/green thread，同学们可以回忆一下《操作系统》课程中讲的用户线程，内核线程和用户线程 N:M 的理论知识）。
