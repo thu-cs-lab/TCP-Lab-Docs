@@ -23,7 +23,7 @@
 
 主要参考文档：
 
-- [RFC 793](https://www.rfc-editor.org/rfc/rfc793.html)
+- [RFC 793](https://www.rfc-editor.org/rfc/rfc793.html) [RFC 793 勘误](https://www.rfc-editor.org/errata/rfc0793)
 - [RFC 1122 Section 4.2 TCP](https://www.rfc-editor.org/rfc/rfc1122#page-82)
 
 ## 必选功能（总分 80 分）
@@ -112,7 +112,7 @@
 ### Feature 3. 实现 TCP New Reno 拥塞控制算法
 
 - 分数：20
-- 参考文档：[RFC 6582](https://datatracker.ietf.org/doc/html/rfc6582)
+- 参考文档：[RFC 6582](https://datatracker.ietf.org/doc/html/rfc6582) [RFC 6582 勘误](https://www.rfc-editor.org/errata_search.php?rfc=6582&rec_status=0)
 
 ### Feature 4. 实现 TCP CUBIC 拥塞控制算法
 
@@ -128,4 +128,4 @@
 
 - 由于 lwIP 不支持 SACK，此处需要用 TUN 模式进行测试。
 - 分数：20
-- 参考文档：[RFC 2018](https://datatracker.ietf.org/doc/html/rfc2018)
+- 参考文档：[RFC 2018](https://datatracker.ietf.org/doc/html/rfc2018) [RFC 2018 勘误](https://www.rfc-editor.org/errata_search.php?rfc=2018&rec_status=0)
