@@ -6,7 +6,7 @@
 
 !!! question "Nagle 算法是什么呢？"
 
-    简单来说，Nagle 算法要解决的是小包问题：如果用户 `write` 调用的数据都很小，并且每次 `write` 都要发送一个 TCP 包给对端，就会产生大量的 TCP 包。一个简单解决的思路是，如果 `write` 的数据太小，那就等一小段时间，期望用户在这个时间里继续写入一些数据，直到超时或者积攒到足够大的数据可以发送。由于超时实现比较麻烦（需要用到 Timer），一个简单的方式是，当所有发送过的数据都已经 ACK 了（类似于拿 rtt 做超时），此时没有 unACK 的数据，就把缓存的数据都发送出去。详细介绍见 [RFC896](https://tools.ietf.org/html/rfc896) 和 [Wikipedia 页面](https://en.wikipedia.org/wiki/Nagle%27s_algorithm)。
+    简单来说，Nagle 算法要解决的是小包问题：如果用户 `write` 调用的数据都很小，并且每次 `write` 都要发送一个 TCP 包给对端，就会产生大量的 TCP 包。一个简单解决的思路是，如果 `write` 的数据太小，那就等一小段时间，期望用户在这个时间里继续写入一些数据，直到超时或者积攒到足够大的数据可以发送。由于超时实现比较麻烦（需要用到 Timer，引入了额外的状态，实现不方便），一个更优雅的方式是，当所有发送过的数据都已经 ACK 了（类似于拿 rtt 做超时，在更新 `snd_una` 的时候判断），此时没有 unACKed 的数据，就把缓存的数据都发送出去。详细介绍见 [RFC896](https://tools.ietf.org/html/rfc896) 和 [Wikipedia 页面](https://en.wikipedia.org/wiki/Nagle%27s_algorithm)。
 
 !!! question "TCP Urgent 怎么实现？"
 
