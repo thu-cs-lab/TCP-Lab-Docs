@@ -122,7 +122,7 @@
 ### Feature 5. 实现 TCP BBR 拥塞控制算法
 
 - 分数：20
-- 参考文档：[RFC BBR draft](https://datatracker.ietf.org/doc/html/draft-cardwell-iccrg-bbr-congestion-control-01)
+- 参考文档：[RFC BBR draft](https://datatracker.ietf.org/doc/html/draft-cardwell-iccrg-bbr-congestion-control-02)
 
 ### Feature 6. 实现 SACK
 
