@@ -19,3 +19,7 @@
 !!! question "make 的时候报错：Division works only with integers"
 
     meson 版本太老，请用 `pip3 install -U meson` 升级。
+
+!!! question "设置了丢包以后，lwip 服务器一段时间没有收到 TCP 包就给客户端发送 FIN 了，能不能延长一下这个超时？"
+
+    lwip 的 HTTPD 实现中，如果发现客户端一段时间（默认是 2s）都没有发送任何数据，就会终止连接。可以在 `lwipopt.h` 头文件中设置 `#define HTTPD_MAX_RETRIES 10`（默认值是 4），这样 HTTPD 会等待更长的时间。详细的设置可以阅读 lwip 的 `httpd_opts.h` 头文件。
