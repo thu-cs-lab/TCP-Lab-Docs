@@ -23,8 +23,15 @@
 
 主要参考文档：
 
-- [RFC 793](https://www.rfc-editor.org/rfc/rfc793.html) [RFC 793 勘误](https://www.rfc-editor.org/errata/rfc0793)
+- [RFC 793](https://www.rfc-editor.org/rfc/rfc793.html) 和 [RFC 793 勘误](https://www.rfc-editor.org/errata/rfc0793)
 - [RFC 1122 Section 4.2 TCP](https://www.rfc-editor.org/rfc/rfc1122#page-82)
+
+教学目的：
+
+1. 本实验从简易到困难，逐步完善一个 TCP 协议栈的功能，可以让同学理解 TCP 协议设计上的一些思路，并在写代码的过程中理解从设计到实现的区别，并考虑实现上的一些细节。
+2. 锻炼同学对于 RFC 全英文文档的阅读能力，这个能力对于未来的学习和研究是很有必要的，因此在本文档中，不会很细致地用中文把要实现的内容复述一遍，目的是让同学去阅读 RFC 文档进行自学。如果实在不想自学，或者因为时间问题，可以在网上搜索中文博客，但这样做也缺少了一次很重要的锻炼机会。相比论文，RFC 的文字比较详细和朴实，是比较好的英文技术类阅读资料。
+3. 希望同学在未来参加公司面试等场合，被问到 TCP 三次握手的时候，可以自信地说：我做过 TCP 实验，你问的这些，我都写过，我都会。
+4. 希望同学可以从 TCP 协议解决问题的过程中，学习一些设计思路，并借鉴到自己所研究的领域当中。
 
 ## 必选功能（总分 80 分）
 ### Step 1. TCP 序列号的对比与生成（sequence number comparison and generation）
@@ -36,7 +43,7 @@
 - 测试 1：给定一些例子，测试对比函数结果是否正确
 - 测试 2：每隔一段时间生成一系列的序列号，这些序列号应该不重复
 - 代码量：~10 行
-- 教学目的：了解序列号的大小关系，如何在整数溢出的情况下，实现保证相对顺序的比较。
+- 教学目的：了解序列号的大小关系，如何在整数溢出的情况下，实现保证相对顺序的比较
 
 ### Step 2. TCP 三次握手连接的建立（3-way handshake）
 
@@ -111,29 +118,35 @@
 
 - 分数：5
 - 参考文档：[RFC 7323 Section 2](https://datatracker.ietf.org/doc/html/rfc7323#section-2)
+- 教学目的：学习并实现一个简单的 TCP Option，理解如何通过扩展的方式来解决原有协议的不足
 
 ### Feature 2. 实现 TCP Timestamps Option
 
 - 分数：5
 - 参考文档：[RFC 7323 Section 3](https://datatracker.ietf.org/doc/html/rfc7323#section-3)
+- 教学目的：学习并实现一个简单的 TCP Option，理解如何通过添加时间戳的方式，来实现更方便的计时
 
 ### Feature 3. 实现 TCP New Reno 拥塞控制算法
 
 - 分数：20
 - 参考文档：[RFC 6582](https://datatracker.ietf.org/doc/html/rfc6582) [RFC 6582 勘误](https://www.rfc-editor.org/errata_search.php?rfc=6582&rec_status=0)
+- 教学目的：学习并实现一个较为复杂和现代的拥塞控制算法
 
 ### Feature 4. 实现 TCP CUBIC 拥塞控制算法
 
 - 分数：20
 - 参考文档：[RFC 8312](https://datatracker.ietf.org/doc/html/rfc8312)
+- 教学目的：学习并实现一个较为复杂和现代的拥塞控制算法
 
 ### Feature 5. 实现 TCP BBR 拥塞控制算法
 
 - 分数：20
 - 参考文档：[RFC BBR draft](https://datatracker.ietf.org/doc/html/draft-cardwell-iccrg-bbr-congestion-control-02)
+- 教学目的：学习并实现一个较为复杂和现代的拥塞控制算法
 
 ### Feature 6. 实现 SACK
 
 - 由于 lwIP 不支持 SACK，此处需要用 TUN 模式进行测试。
 - 分数：20
 - 参考文档：[RFC 2018](https://datatracker.ietf.org/doc/html/rfc2018) [RFC 2018 勘误](https://www.rfc-editor.org/errata_search.php?rfc=2018&rec_status=0)
+- 教学目的：学习并实现一个比较复杂一些的 TCP Option，理解如何通过添加简单的数据结构和扩展的方式来解决原有协议的不足
