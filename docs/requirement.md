@@ -36,6 +36,7 @@
 - 测试 1：给定一些例子，测试对比函数结果是否正确
 - 测试 2：每隔一段时间生成一系列的序列号，这些序列号应该不重复
 - 代码量：~10 行
+- 教学目的：了解序列号的大小关系，如何在整数溢出的情况下，实现保证相对顺序的比较。
 
 ### Step 2. TCP 三次握手连接的建立（3-way handshake）
 
@@ -46,6 +47,7 @@
 - 测试 3a：测试客户端逻辑，启动 lab-client 和 lwip-server，在输出日志中检查 TCP 状态机的转移
 - 测试 3b：测试服务端逻辑，启动 lwip-client 和 lab-server，在输出日志中检查 TCP 状态机的转移
 - 代码量：~50 行
+- 教学目的：学习 TCP 建立连接的三次握手过程，初步接触框架中发送 TCP 分组的方法和 TCP 状态机的实现，强化 SYN 占用序列号的记忆
 
 ### Step 3. 简易的发送和接收逻辑（send & receive）
 
@@ -53,10 +55,11 @@
 - 发送：将用户调用 tcp_write 传入的数据写入缓冲区，综合 MSS、待发送的数据大小和对方窗口大小，发送数据
 - 接收：将对方发送的数据写入缓冲区，当用户调用 tcp_read 时，从缓冲区复制数据到用户数组
 - 分数：10
-- 参考文档：[RFC 793 Page 56](https://www.rfc-editor.org/rfc/rfc793.html#page-56) 和 [RFC 793 Page 58](https://www.rfc-editor.org/rfc/rfc793.html#page-58)
+- 参考文档：[RFC 793 Page 56](https://www.rfc-editor.org/rfc/rfc793.html#page-56) 和 [RFC 793 Page 58](https://www.rfc-editor.org/rfc/rfc793.html#page-58) 和 [RFC 793 Send Sequence Space](https://www.rfc-editor.org/rfc/rfc793.html#page-20)
 - 测试 4a：测试客户端逻辑，启动 lab-client 和 lwip-server，在输出日志中检查是否正确完成了 HTTP 请求
 - 测试 4b：测试服务端逻辑，启动 lwip-client 和 lab-server，在输出日志中检查是否正确完成了 HTTP 请求
 - 代码量：~50 行
+- 教学目的：理解 TCP 栈与用户程序交互的方式，TCP 栈内发送缓存和接收缓存的意义，如何维护发送和接收的序列号空间（即 `SND.UNA`，`SND.NXT`，`SND.WND`，`RCV.NXT` 和 `RCV.WND`）
 
 ### Step 4. TCP 连接的终止（connection termination）
 
@@ -66,6 +69,7 @@
 - 参考文档：[RFC 793 Page 60](https://www.rfc-editor.org/rfc/rfc793.html#page-60) 和 [RFC 793 Page 75](https://www.rfc-editor.org/rfc/rfc793.html#page-75)
 - 测试 5a：测试客户端逻辑，启动 lab-client 和 lwip-server，在输出日志中检查是否出现了正确的状态机转移
 - 测试 5b：测试服务端逻辑，启动 lwip-client 和 lab-server，在输出日志中检查是否出现了正确的状态机转移
+- 教学目的：理解 TCP 连接终止的四次挥手过程，强化 FIN 占用序列号的记忆
 
 ### Step 5. 访问百度主页（visit baidu homepage）
 
@@ -73,6 +77,7 @@
 - 给做实验的你一个有成就感的阶段性成果
 - 分数：10
 - 测试 6：在本地运行 socat 命令（命令：`sudo socat TCP-LISTEN:80,reuseaddr,fork TCP:www.baidu.com:80`），监听 80 端口并转发百度主页；然后运行 lab-client 并设置为 TUN 模式（命令：`make run-lab-client-tun`），那么 lab-client 会通过本机 80 端口访问百度主页 80 端口，并下载到本地
+- 教学目的：了解一个最小的 TCP 实现所需要的功能，并获得阶段性的成就
 
 ### Step 6. 重传和乱序重排（retransmission and out of order handling）
 
@@ -80,12 +85,14 @@
 - 乱序重排的实现思路是，如果发现 TCP 分组的序列号不等于 RCV.NXT，此时出现了乱序，先把数据保存到列表中，当之后接受到序列号等于 RCV.NXT 的分组时，再将列表中已有的数据拼接起来，写入到接收缓冲区中。
 - 分数：10
 - 暂无自动化测试
+- 教学目的：理解在网络中出现丢包或者乱序的时候，如何在协议上保持不重不漏、顺序正确地实现数据传输
 
 ### Step 7. 实现 Nagle 算法（Nagle's algorithm）
 
 - 分数：5
 - 参考文档：[RFC 896](https://datatracker.ietf.org/doc/html/rfc896)
 - 暂无自动化测试
+- 教学目的：学习并实现一个经典的 TCP 上的优化
 
 ### Step 8. 实现慢启动，冲突避免和快速重传（slow start, congestion avoidance and fast retransmit/recovery）
 
@@ -96,6 +103,7 @@
 - 分数：15
 - 参考文档：[RFC 5681 Section 3.1](https://datatracker.ietf.org/doc/html/rfc5681#section-3.1) 和 [RFC 5681 Section 3.2](https://datatracker.ietf.org/doc/html/rfc5681#section-3.2)
 - 暂无自动化测试
+- 教学目的：学习并实现经典的拥塞控制协议，并理解 TCP 协议栈是如何通过丢包和重复的 ACK 来判断链路上是否拥挤的，拥挤时要如何让出带宽来缓解网络的拥挤程度
 
 ## 限选功能（总分 20 分）
 
