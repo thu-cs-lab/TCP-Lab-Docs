@@ -33,6 +33,14 @@
 3. 希望同学在未来参加公司面试等场合，被问到 TCP 三次握手的时候，可以自信地说：我做过 TCP 实验，你问的这些，我都写过，我都会。
 4. 希望同学可以从 TCP 协议解决问题的过程中，学习一些设计思路，并借鉴到自己所研究的领域当中。
 
+??? question "我英语水平不够怎么办？"
+
+	??? question "看到大段英文我就头晕怎么办？"
+
+		??? question "我真的没法读 RFC，助教你饶了我吧！"
+
+			那助教推荐一个中文 TCP 教程：[小林 x 图解计算机基础](https://xiaolincoding.com/network/3_tcp/tcp_feature.html)
+
 ## 必选功能（总分 80 分）
 ### Step 1. TCP 序列号的对比与生成（sequence number comparison and generation）
 
