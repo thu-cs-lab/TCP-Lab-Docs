@@ -2,7 +2,7 @@
 
 本实验的目的是实现一个 TCP 网络栈，单人完成。
 
-实验分数由两部分组成，一部分是必选功能共 80 分，一部分是限选功能共 20 分。
+实验分数由两部分组成，一部分是必选功能共 60 分，一部分是限选功能共 40 分。
 
 各项功能见下表，其中打 `*` 号的为必选功能，其余为限选功能。同学们需要实现所有的必选功能，并在剩余的限选功能中选择若干个功能使得这部分分数累计达到或超过 40 分。
 
@@ -10,8 +10,8 @@
 
 评分方法：
 
-1. 必选部分（80 分）：`sum(scores)`
-2. 自选部分（20 分）：`min(sum(scores),20)`
+1. 必选部分（60 分）：`sum(scores)`
+2. 自选部分（40 分）：`min(sum(scores),40)`
 
 在实验报告中，对于所实现的每个功能，请编写一个章节，包括下列事情：
 
@@ -41,12 +41,12 @@
 
 			那助教推荐一个中文 TCP 教程：[小林 x 图解计算机基础](https://xiaolincoding.com/network/3_tcp/tcp_feature.html)
 
-## 必选功能（总分 80 分）
+## 必选功能（总分 60 分）
 ### Step 1. TCP 序列号的对比与生成（sequence number comparison and generation）
 
 - 实现序列号的对比函数（共四个），注意序列号在可能溢出时大小比较的特殊情况。
 - 实现序列号的生成函数，序列号可以从目前的时间戳计算得到。
-- 分数：10
+- 分数：5
 - 参考文档：[RFC 793 Section 3.3](https://www.rfc-editor.org/rfc/rfc793.html#section-3.3) 和 [RFC 793 Page 27](https://www.rfc-editor.org/rfc/rfc793.html#page-27)
 - 测试 1：给定一些例子，测试对比函数结果是否正确
 - 测试 2：每隔一段时间生成一系列的序列号，这些序列号应该不重复
@@ -69,7 +69,7 @@
 - 简易的发送和接收：不考虑丢包和乱序
 - 发送：将用户调用 tcp_write 传入的数据写入缓冲区，综合 MSS、待发送的数据大小和对方窗口大小，发送数据
 - 接收：将对方发送的数据写入缓冲区，当用户调用 tcp_read 时，从缓冲区复制数据到用户数组
-- 分数：10
+- 分数：5
 - 参考文档：[RFC 793 Page 56](https://www.rfc-editor.org/rfc/rfc793.html#page-56) 和 [RFC 793 Page 58](https://www.rfc-editor.org/rfc/rfc793.html#page-58) 和 [RFC 793 Send Sequence Space](https://www.rfc-editor.org/rfc/rfc793.html#page-20)
 - 测试 4a：测试客户端逻辑，启动 lab-client 和 lwip-server，在输出日志中检查是否正确完成了 HTTP 请求
 - 测试 4b：测试服务端逻辑，启动 lwip-client 和 lab-server，在输出日志中检查是否正确完成了 HTTP 请求
@@ -90,7 +90,7 @@
 
 - 如果前面四步实现得当，这一步应该直接可以通过
 - 给做实验的你一个有成就感的阶段性成果
-- 分数：10
+- 分数：5
 - 测试 6：在本地运行 socat 命令（命令：`sudo socat TCP-LISTEN:80,reuseaddr,fork TCP:www.baidu.com:80`），监听 80 端口并转发百度主页；然后运行 lab-client 并设置为 TUN 模式（命令：`make run-lab-client-tun`），那么 lab-client 会通过本机 80 端口访问百度主页 80 端口，并下载到本地
 - 教学目的：了解一个最小的 TCP 实现所需要的功能，并获得阶段性的成就
 
@@ -115,46 +115,48 @@
 - cwnd 初始状态下设为 MSS 的一个倍数，在慢驱动阶段（cwnd < ssthresh），每次接收到 ACK，都会增加 cwnd。
 - 当 cwnd > ssthresh 时，进入冲突避免阶段，此时采用新的方式增加 cwnd。
 - 当发现重复的 ACK 时，采用快速重传算法，更新 cwnd 和 ssthresh。
-- 分数：15
+- 分数：10
 - 参考文档：[RFC 5681 Section 3.1](https://datatracker.ietf.org/doc/html/rfc5681#section-3.1) 和 [RFC 5681 Section 3.2](https://datatracker.ietf.org/doc/html/rfc5681#section-3.2)
 - 暂无自动化测试
 - 教学目的：学习并实现经典的拥塞控制协议，并理解 TCP 协议栈是如何通过丢包和重复的 ACK 来判断链路上是否拥挤的，拥挤时要如何让出带宽来缓解网络的拥挤程度
 
-## 限选功能（总分 20 分）
+## 限选功能（总分 40 分）
 
-### Feature 1. 实现 TCP Window Scale Option
+### Feature 1. 实现 TCP BBR 拥塞控制算法
+
+- 分数：40
+- 参考文档：[RFC BBR draft](https://datatracker.ietf.org/doc/html/draft-cardwell-iccrg-bbr-congestion-control-00)
+- 教学目的：学习并实现一个较为复杂和现代的拥塞控制算法
+
+#### Step 1. 实现 pacing 功能
 
 - 分数：5
-- 参考文档：[RFC 7323 Section 2](https://datatracker.ietf.org/doc/html/rfc7323#section-2)
-- 教学目的：学习并实现一个简单的 TCP Option，理解如何通过扩展的方式来解决原有协议的不足
+- BBR 算法中使用了 pacing 功能，通过控制发送时间间隔的方式控制发送速率。
+- 在这一步中，你很可能需要使用定时器。你可以在“实验框架”一节中获得一些提示。
+- 完成这一步后，你应能使发送端按照给定速率发送。
 
-### Feature 2. 实现 TCP Timestamps Option
+#### Step 2. 构建 rate sample
 
-- 分数：5
-- 参考文档：[RFC 7323 Section 3](https://datatracker.ietf.org/doc/html/rfc7323#section-3)
-- 教学目的：学习并实现一个简单的 TCP Option，理解如何通过添加时间戳的方式，来实现更方便的计时
+- 分数：10
+- BBR 算法中需要根据收到的 ACK 还原网络情况。因此，需要针对每一个 ACK 都构建一个 rate sample，并将其作为参数传入拥塞控制算法对于 ACK 的响应函数中。
+- rate sample 中应当至少包含如下信息：RTT、delivery rate。
+- 为了构建 rate sample，可能需要维护一些额外的数据结构。
+- 完成这一步后，你应能在收到每一个 ACK 后输出一组统计信息。
 
-### Feature 3. 实现 TCP New Reno 拥塞控制算法
+#### Step 3. 实现 BBR 算法
 
-- 分数：20
-- 参考文档：[RFC 6582](https://datatracker.ietf.org/doc/html/rfc6582) [RFC 6582 勘误](https://www.rfc-editor.org/errata_search.php?rfc=6582&rec_status=0)
-- 教学目的：学习并实现一个较为复杂和现代的拥塞控制算法
+- 分数：25
+- 你已经完成了必要的准备工作。现在，将 BBR 算法实现出来吧！
 
-### Feature 4. 实现 TCP CUBIC 拥塞控制算法
-
-- 分数：20
-- 参考文档：[RFC 8312](https://datatracker.ietf.org/doc/html/rfc8312)
-- 教学目的：学习并实现一个较为复杂和现代的拥塞控制算法
-
-### Feature 5. 实现 TCP BBR 拥塞控制算法
-
-- 分数：20
-- 参考文档：[RFC BBR draft](https://datatracker.ietf.org/doc/html/draft-cardwell-iccrg-bbr-congestion-control-02)
-- 教学目的：学习并实现一个较为复杂和现代的拥塞控制算法
-
-### Feature 6. 实现 SACK
+### Feature 2. 实现 SACK
 
 - 由于 lwIP 不支持 SACK，此处需要用 TUN 模式进行测试。
 - 分数：20
 - 参考文档：[RFC 2018](https://datatracker.ietf.org/doc/html/rfc2018) [RFC 2018 勘误](https://www.rfc-editor.org/errata_search.php?rfc=2018&rec_status=0)
 - 教学目的：学习并实现一个比较复杂一些的 TCP Option，理解如何通过添加简单的数据结构和扩展的方式来解决原有协议的不足
+
+!!! tip "BBRv2"
+
+	目前 BBR 已经经过改进发布了 BBRv2 版本（[BBR draft](https://datatracker.ietf.org/doc/html/draft-cardwell-iccrg-bbr-congestion-control-02)），这个版本为 BBR 添加了
+	对丢包的响应，使得 BBR 能和其他基于丢包的算法共存，且稳定性有所提升。如果有 SACK 支持，BBRv2 能更精准地处理丢包事件。如果你对 BBR 和 SACK 都很感兴趣，不妨在实现 SACK 后继续实现
+	BBRv2，进一步挑战自己。如果你只计划实现 BBR，也不妨了解一下 BBRv2 进行了怎样的改进。
