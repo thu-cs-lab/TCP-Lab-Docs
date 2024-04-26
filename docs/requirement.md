@@ -95,6 +95,7 @@
 - 分数：5
 - 测试 6：在本地运行 socat 命令（命令：`sudo socat TCP-LISTEN:80,reuseaddr,fork TCP:www.baidu.com:80`），监听 80 端口并转发百度主页；然后运行 lab-client 并设置为 TUN 模式（命令：`make run-lab-client-tun`），那么 lab-client 会通过本机 80 端口访问百度主页 80 端口，并下载到本地
 - 注意：部分发行版可能没有自带 socat命令， 需要额外安装 socat 软件包
+- 注意：在关闭连接的过程中，当百度的服务器处于`FIN_WAIT_2`状态时，它只能接受`ACK=1, FIN=1`的包，而不会接受`ACK=0, FIN=1`的包，收到`ACK=0, FIN=1`的包时，服务器既不会返回`ACK`，也不会进入`TIME_WAIT`状态。如果你的实现里只能发送`ACK=0, FIN=1`的包，那么你的客户端可能会卡在`LAST_ACK`状态，无法进入`CLOSE`状态。（此条感谢尤梓锐同学提醒）
 - 教学目的：了解一个最小的 TCP 实现所需要的功能，并获得阶段性的成就
 
 ### Step 6. 重传和乱序重排（retransmission and out of order handling）
