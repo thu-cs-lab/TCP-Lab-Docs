@@ -119,7 +119,7 @@
 - 注意：编译时，我们用 `ENABLE_NAGLE` 这个宏来区分 Nagle 算法是否启用。如果存在 `ENABLE_NAGLE` 这个宏，你的 TCP 实现就应该启用 Nagle 算法
 - 教学目的：学习并实现一个经典的 TCP 上的优化
 
-### Step 8. 实现慢启动，冲突避免和快速重传（slow start, congestion avoidance and fast retransmit/recovery）
+### Step 8. 实现慢启动，冲突避免，快速重传和快速恢复（slow start, congestion avoidance and fast retransmit/recovery）
 
 - 添加 cwnd 变量，表示拥塞窗口大小。还需要定义 ssthresh，表示慢启动的阈值。
 - cwnd 初始状态下设为 MSS 的一个倍数，在慢驱动阶段（cwnd < ssthresh），每次接收到 ACK，都会增加 cwnd。
