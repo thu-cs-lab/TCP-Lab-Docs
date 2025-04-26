@@ -78,6 +78,8 @@
 - 测试 4a：测试客户端逻辑，启动 lab-client 和 lwip-server，在输出日志中检查是否正确完成了 HTTP 请求
 - 测试 4b：测试服务端逻辑，启动 lwip-client 和 lab-server，在输出日志中检查是否正确完成了 HTTP 请求
 - 代码量：~50 行
+- 注意：代码中的`TODO`只是提示这些地方需要添加代码，但是`TODO`之外也有一些地方根据 TCP 协议的标准来需要补充实现
+- 注意：如果完成了Step 3，但还没完成Step 4，且本测试无法通过，请尝试把 TODO(step4) 的`UNIMPLEMENTED`注释掉再运行测试
 - 教学目的：理解 TCP 栈与用户程序交互的方式，TCP 栈内发送缓存和接收缓存的意义，如何维护发送和接收的序列号空间（即 `SND.UNA`，`SND.NXT`，`SND.WND`，`RCV.NXT` 和 `RCV.WND`）
 - 验收要求：通过自动化测试
 
