@@ -514,14 +514,14 @@ pyyaml = ">=5.1"
 
 [[package]]
 name = "mkdocs-git-authors-plugin"
-version = "0.7.2"
+version = "0.10.0"
 description = "Mkdocs plugin to display git authors of a page"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 groups = ["dev"]
 files = [
-    {file = "mkdocs-git-authors-plugin-0.7.2.tar.gz", hash = "sha256:f541730e4cabdafa0ac758c94d28ba5e8ddca4c859e5de4c89f1226cb6ccd0ad"},
-    {file = "mkdocs_git_authors_plugin-0.7.2-py3-none-any.whl", hash = "sha256:c8a2784a867db79ad3b477a96ee96875d17b09192b6d3be71f08df25afff76c4"},
+    {file = "mkdocs_git_authors_plugin-0.10.0-py3-none-any.whl", hash = "sha256:28421a99c3e872a8e205674bb80ec48524838243e5f59eaf9bd97df103e38901"},
+    {file = "mkdocs_git_authors_plugin-0.10.0.tar.gz", hash = "sha256:29d1973b2835663d79986fb756e02f1f0ff3fe35c278e993206bd3c550c205e4"},
 ]
 
 [package.dependencies]
@@ -915,4 +915,4 @@ watchmedo = ["PyYAML (>=3.10)"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.10"
-content-hash = "303e2ac30e05601a861737a3f64b29f9b784bfb160854594dc4cb4388e329a18"
+content-hash = "24be0cbac736d31aff2c6fab669317eda57340cb08592c9d4568d5e5ed2235cd"
