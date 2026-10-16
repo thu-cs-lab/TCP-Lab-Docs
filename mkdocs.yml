@@ -6,6 +6,7 @@ copyright: 'Copyright &copy; 2021-2022 Department of Computer Science and Techno
 theme: 
   name: 'material'
   language: 'zh'
+  font: false
   custom_dir: 'theme-override/'
   icon:
     logo: material/memory
