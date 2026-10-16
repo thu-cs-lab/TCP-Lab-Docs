@@ -13,8 +13,8 @@ variables:
     - right=3.18cm
   indent: yes
   numbersections: yes
-  title: 计算机网络原理实验指导书
-  author: 计算机网络原理实验教学团队
+  title: 计算机网络专题训练实验指导书
+  author: 计算机网络专题训练实验教学团队
   date: '\today'
   header-includes: |
     \usepackage{enumitem}

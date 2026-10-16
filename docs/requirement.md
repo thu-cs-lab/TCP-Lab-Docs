@@ -100,7 +100,7 @@
 - 给做实验的你一个有成就感的阶段性成果
 - 分数：5
 - 测试 6：在本地运行 socat 命令（命令：`sudo socat TCP-LISTEN:80,reuseaddr,fork TCP:www.baidu.com:80`），监听 80 端口并转发百度主页；然后运行 lab-client 并设置为 TUN 模式（命令：`make run-lab-client-tun`），那么 lab-client 会通过本机 80 端口访问百度主页 80 端口，并下载到本地
-- 注意：部分发行版可能没有自带 socat命令， 需要额外安装 socat 软件包
+- 注意：部分发行版可能没有自带 socat 命令，需要额外安装 socat 软件包
 - 注意：在关闭连接的过程中，当百度的服务器处于`FIN_WAIT_2`状态时，它只能接受`ACK=1, FIN=1`的包，而不会接受`ACK=0, FIN=1`的包，收到`ACK=0, FIN=1`的包时，服务器既不会返回`ACK`，也不会进入`TIME_WAIT`状态。如果你的实现里只能发送`ACK=0, FIN=1`的包，那么你的客户端可能会卡在`LAST_ACK`状态，无法进入`CLOSE`状态。（cr. 尤梓锐）
 - 注意：如果采用虚拟机环境，发现无法访问百度，但是前面的 step 均正常，请尝试关闭防火墙（cr. 王楚怡）
 - 教学目的：了解一个最小的 TCP 实现所需要的功能，并获得阶段性的成就
@@ -109,7 +109,7 @@
 ### Step 6. 重传和乱序重排（retransmission and out of order handling）
 
 - 重传的实现思路是，对于发出去的 TCP 分组，记录在一个列表中，并且启动一个计时器，每一段时间检查一下列表中的 TCP 分组，如果发现有已经被对端 ACK 的，就删掉；否则就再次发送。
-- 乱序重排的实现思路是，如果发现 TCP 分组的序列号不等于 RCV.NXT，此时出现了乱序，先把数据保存到列表中，当之后接受到序列号等于 RCV.NXT 的分组时，再将列表中已有的数据拼接起来，写入到接收缓冲区中。
+- 乱序重排的实现思路是，如果发现 TCP 分组的序列号不等于 RCV.NXT，此时出现了乱序，先把数据保存到列表中，当之后接收到序列号等于 RCV.NXT 的分组时，再将列表中已有的数据拼接起来，写入到接收缓冲区中。
 - 分数：10
 - 测试 7a：启动 lwip-client 和 lab-server，模拟接收端的丢包，在输出日志中检查是否出现了正确的状态机转移
 - 测试 7b：启动 lab-client 和 lab-server，lab-server模拟 HTTP response 的延迟、乱序发送，在输出日志中检查是否出现了正确的状态机转移
@@ -132,11 +132,11 @@
 - 教学目的：学习并实现一个经典的 TCP 上的优化
 - 验收要求：展示开启 Nagle 算法时 TCP 连接的传输效率相比关闭 Nagle 算法时有所提高，展示场景可以参考自动化测试脚本
 
-### Step 8. 实现慢启动，冲突避免，快速重传和快速恢复（slow start, congestion avoidance and fast retransmit/recovery）
+### Step 8. 实现慢启动，拥塞避免，快速重传和快速恢复（slow start, congestion avoidance and fast retransmit/recovery）
 
 - 添加 cwnd 变量，表示拥塞窗口大小。还需要定义 ssthresh，表示慢启动的阈值。
-- cwnd 初始状态下设为 MSS 的一个倍数，在慢驱动阶段（cwnd < ssthresh），每次接收到 ACK，都会增加 cwnd。
-- 当 cwnd > ssthresh 时，进入冲突避免阶段，此时采用新的方式增加 cwnd。
+- cwnd 初始状态下设为 MSS 的一个倍数，在慢启动阶段（cwnd < ssthresh），每次接收到 ACK，都会增加 cwnd。
+- 当 cwnd > ssthresh 时，进入拥塞避免阶段，此时采用新的方式增加 cwnd。
 - 当发现重复的 ACK 时，采用快速重传算法，更新 cwnd 和 ssthresh。
 - 分数：10
 - 参考文档：[RFC 5681 Section 3.1](https://datatracker.ietf.org/doc/html/rfc5681#section-3.1) 和 [RFC 5681 Section 3.2](https://datatracker.ietf.org/doc/html/rfc5681#section-3.2)
@@ -147,7 +147,7 @@
 - 请比较测试 9a 和 9b 下，TCP 连接的传输效率
 - 注：为了便于显示拥塞控制算法的效果，你可以修改 MTU 以便观察
 - 教学目的：学习并实现经典的拥塞控制协议，并理解 TCP 协议栈是如何通过丢包和重复的 ACK 来判断链路上是否拥挤的，拥挤时要如何让出带宽来缓解网络的拥挤程度
-- 验收要求：通过抓包、日志等方式展示慢启动和冲突避免阶段 cwnd 的变化模式，以及在丢包发生后算法的行为，展示场景可以参考自动化测试脚本
+- 验收要求：通过抓包、日志等方式展示慢启动和拥塞避免阶段 cwnd 的变化模式，以及在丢包发生后算法的行为，展示场景可以参考自动化测试脚本
 
 ## 限选功能（总分 40 分）
 
