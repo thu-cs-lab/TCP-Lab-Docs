@@ -1,4 +1,4 @@
-name: Build documentation with mkdocs
+name: Build documentation with zensical
 
 on: [push]
 
@@ -7,14 +7,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python 3.12
-      uses: actions/setup-python@v1
+    - uses: actions/checkout@v4
+    - name: Install uv
+      uses: astral-sh/setup-uv@v5
       with:
-        python-version: 3.12
+        python-version: '3.13'
+        enable-cache: true
     - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-    - name: Build with mkdocs
-      run: mkdocs build
+      run: uv sync
+    - name: Build with zensical
+      run: uv run zensical build

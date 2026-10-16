@@ -1,16 +1,9 @@
-[tool.poetry]
+[project]
 name = "tcp-lab-docs"
 version = "0.1.0"
 description = ""
-authors = ["Jiajie Chen <c@jia.je>"]
-package-mode = false
-
-[tool.poetry.dependencies]
-python = "^3.10"
-zensical = "^0.0.65"
-
-[tool.poetry.dev-dependencies]
-
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+authors = [{ name = "Jiajie Chen", email = "c@jia.je" }]
+requires-python = ">=3.11"
+dependencies = [
+    "zensical>=0.0.70",
+]
